@@ -3,256 +3,78 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PFP Generator</title>
-    <style>
-        /* Basic resets */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: 'Arial', sans-serif;
-            background-color: #f5f5f5; /* Light gray background */
-            color: #000000; /* Black text for readability */
-            text-align: center;
-            padding: 20px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-        }
-
-        h1 {
-            color: #e30000; /* Red for main headings */
-            margin-bottom: 20px;
-            font-size: 2.5rem;
-            width: 100%;
-            text-align: center;
-        }
-
-        .container {
-            display: flex;
-            flex-direction: row;
-            align-items: flex-start;
-            justify-content: center;
-            background-color: #ffffff;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-        }
-
-        .canvas-wrapper {
-            margin-right: 20px;
-        }
-
-        canvas {
-            border: 2px solid #e30000; /* Red border for canvas */
-            border-radius: 10px; /* Rounded corners */
-            background-color: #ffffff; /* White background for canvas */
-        }
-
-        .controls {
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            max-width: 300px;
-        }
-
-        .controls label {
-            display: block;
-            margin-bottom: 5px;
-            color: #000000;
-            font-size: 1rem;
-            text-align: left;
-        }
-
-        .controls select {
-            width: 100%;
-            padding: 10px;
-            margin-bottom: 15px;
-            border: 1px solid #cccccc; /* Light gray border */
-            border-radius: 5px;
-            font-size: 1rem;
-        }
-
-        button {
-            background-color: #e30000; /* Red button */
-            color: #ffffff;
-            padding: 10px 20px;
-            font-size: 1.2rem;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
-        }
-
-        button:hover {
-            background-color: #b30000; /* Darker red on hover */
-        }
-
-        /* Responsive adjustments */
-        @media (max-width: 768px) {
-            .container {
-                flex-direction: column;
-            }
-
-            canvas {
-                width: 100%;
-                margin-bottom: 20px;
-            }
-
-            .controls {
-                width: 100%;
-                max-width: none;
-            }
-        }
-
-        @media (max-width: 480px) {
-            h1 {
-                font-size: 1.8rem;
-            }
-
-            .controls label {
-                font-size: 0.9rem;
-            }
-        }
-    </style>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Custom Image Generator</title>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <h1>Create Your Custom PFP</h1>
-    
-    <!-- Container for the canvas and controls -->
-    <div class="container">
-        <!-- Canvas for PFP preview -->
-        <div class="canvas-wrapper">
-            <canvas id="pfpCanvas" width="400" height="400"></canvas>
+    <section class="wardrobe">
+        <div class="wrapper">
+            <div class="title">
+                <h1>Custom Generator</h1>
+                <p>powered by <a href="https://yourdomain.com" target="_blank">YourBrand</a></p>
+            </div>
+            <div class="toggler">
+                <div class="single toggle-active-collection active">
+                    <img src="assets/icons/collection1.png" alt="Collection 1">
+                </div>
+            </div>
+            <div class="content">
+                <div class="preview">
+                    <div class="image loading" id="load-preview">
+                        <canvas width="1000" height="1000" id="drawAsset"></canvas>
+                    </div>
+                    <div class="actions">
+                        <div class="input">
+                            <input type="text" placeholder="Search Asset #" id="asset-id-input">
+                            <button type="button" class="search-asset-id">
+                                <img src="assets/icons/search.png" alt="Search Icon">
+                            </button>
+                        </div>
+                        <div class="buttons">
+                            <button type="button" class="randomize-btn">
+                                <img src="assets/icons/dice.png" alt="Randomize">
+                                <span>Randomise</span>
+                            </button>
+                            <button type="button" class="reset-btn">
+                                <img src="assets/icons/reset.png" alt="Reset">
+                                <span>Reset</span>
+                            </button>
+                            <button type="button" class="download-btn">
+                                <img src="assets/icons/download.png" alt="Download">
+                                <span>Download</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="items">
+                    <!-- Here are the customization options for Background, Shank, Enamel, Eyes -->
+                    <div class="customization-options">
+                        <h3>Background</h3>
+                        <div class="background-options">
+                            <!-- Background options will go here -->
+                        </div>
+
+                        <h3>Shank</h3>
+                        <div class="shank-options">
+                            <!-- Shank options will go here -->
+                        </div>
+
+                        <h3>Enamel</h3>
+                        <div class="enamel-options">
+                            <!-- Enamel options will go here -->
+                        </div>
+
+                        <h3>Eyes</h3>
+                        <div class="eyes-options">
+                            <!-- Eyes options will go here -->
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
+    </section>
 
-        <!-- Customization Controls -->
-        <div class="controls">
-            <!-- Tier Edition -->
-            <label for="tierSelect">Tier Edition:</label>
-            <select id="tierSelect" onchange="updateTier(this.value)">
-                <option value="tier1.png">Standard</option>
-                <option value="tier2.png">Premium</option>
-                <option value="tier3.png">Limited Edition</option>
-            </select>
-
-            <!-- Metal -->
-            <label for="metalSelect">Metal:</label>
-            <select id="metalSelect" onchange="updateMetal(this.value)">
-                <option value="gold.png">Gold</option>
-                <option value="silver.png">Silver</option>
-                <option value="bronze.png">Bronze</option>
-            </select>
-
-            <!-- Eyes -->
-            <label for="eyeSelect">Eyes:</label>
-            <select id="eyeSelect" onchange="updateEyes(this.value)">
-                <option value="eyes1.png">Eyes Type 1</option>
-                <option value="eyes2.png">Eyes Type 2</option>
-                <option value="eyes3.png">Eyes Type 3</option>
-            </select>
-
-            <!-- Gemstones -->
-            <label for="gemstoneSelect">Gemstones:</label>
-            <select id="gemstoneSelect" onchange="updateGemstone(this.value)">
-                <option value="diamond.png">Diamond</option>
-                <option value="ruby.png">Ruby</option>
-                <option value="sapphire.png">Sapphire</option>
-            </select>
-
-            <!-- Enamel -->
-            <label for="enamelSelect">Enamel:</label>
-            <select id="enamelSelect" onchange="updateEnamel(this.value)">
-                <option value="enamel1.png">Enamel Type 1</option>
-                <option value="enamel2.png">Enamel Type 2</option>
-                <option value="enamel3.png">Enamel Type 3</option>
-            </select>
-
-            <!-- Background -->
-            <label for="backgroundSelect">Background:</label>
-            <select id="backgroundSelect" onchange="updateBackground(this.value)">
-                <option value="background1.png">Background 1</option>
-                <option value="background2.png">Background 2</option>
-                <option value="background3.png">Background 3</option>
-            </select>
-
-            <!-- Download Button -->
-            <button onclick="downloadPFP()">Download PFP</button>
-        </div>
-    </div>
-
-    <!-- JavaScript for handling customizations and canvas rendering -->
-    <script>
-        const canvas = document.getElementById('pfpCanvas');
-        const ctx = canvas.getContext('2d');
-
-        // Default selected features
-        let selectedFeatures = {
-            tier: 'tier1.png',
-            metal: 'gold.png',
-            eyes: 'eyes1.png',
-            gemstone: 'diamond.png',
-            enamel: 'enamel1.png',
-            background: 'background1.png'
-        };
-
-        // Redraw the canvas whenever an option is changed
-        function redrawCanvas() {
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-            // Load each selected feature as an image and draw it on the canvas
-            Object.values(selectedFeatures).forEach(feature => {
-                const img = new Image();
-                img.src = feature;  // Assuming the files are stored relative to the same directory
-                img.onload = () => ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
-            });
-        }
-
-        // Update functions for each feature
-        function updateTier(tierSrc) {
-            selectedFeatures.tier = tierSrc;
-            redrawCanvas();
-        }
-
-        function updateMetal(metalSrc) {
-            selectedFeatures.metal = metalSrc;
-            redrawCanvas();
-        }
-
-        function updateEyes(eyeSrc) {
-            selectedFeatures.eyes = eyeSrc;
-            redrawCanvas();
-        }
-
-        function updateGemstone(gemstoneSrc) {
-            selectedFeatures.gemstone = gemstoneSrc;
-            redrawCanvas();
-        }
-
-        function updateEnamel(enamelSrc) {
-            selectedFeatures.enamel = enamelSrc;
-            redrawCanvas();
-        }
-
-        function updateBackground(backgroundSrc) {
-            selectedFeatures.background = backgroundSrc;
-            redrawCanvas();
-        }
-
-        // Function to download the final PFP
-        function downloadPFP() {
-            const link = document.createElement('a');
-            link.download = 'myPFP.png';
-            link.href = canvas.toDataURL();
-            link.click();
-        }
-
-        // Initial canvas draw
-        redrawCanvas();
-    </script>
+    <script src="script.js"></script>
 </body>
 </html>
